@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Boter, Kaas en Eieren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+        <<link rel="stylesheet" type="text/css" media="screen" href="main.css">>
+        <script src="main.js"></script>
+    -->
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            font-size: 30px;
+        }
+        td > a {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        {% if moves <= 8 %}
+            {% if won == "_" %}
+                {% for i in range(3) %}
+                    <tr>
+                        {% for j in range(3) %}
+                            <td>
+                                {% if game[i][j] != "_" %}
+                                    {{game[i][j]}}
+                                {% else %}
+                                    <a href="{{ url_for('play', row=i, col=j) }}">Play {{turn}}</a>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                <p><a href="{{ url_for('computer_move') }}">Laat de computer zetten...</a></p>
+            {% else %}
+                <p>{{won}} heeft gewonnen!!!</p>
+                {% for i in range(3) %}
+                    <tr>
+                        {% for j in range(3) %}
+                            <td>
+                                {% if game[i][j] != "_" %}
+                                    {{game[i][j]}}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}      
+            {% endif %}
+        {% else %}
+            <p>Remise. Er zijn geen zetten meer...</p>
+            {% for i in range(3) %}
+                <tr>
+                    {% for j in range(3) %}
+                        <td>
+                            {% if game[i][j] != "_" %}
+                                {{game[i][j]}}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}      
+        {% endif %}
+
+    </table>
+    <p><a href="{{ url_for('reset_game') }}">Begin opnieuw...</a></p>
+</body>
+</html>
