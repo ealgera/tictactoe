@@ -27,6 +27,30 @@ def check_win(board, side):
         win = True
     return win
 
+def mini_max(game, turn):
+    # Game is string van 9 karakters. Vrije plaatsen zijn "_".
+    moves = [i for i in range(9) if game[i] == "_"]  # Lijst met indices van game. Available moves
+    if len(moves) == 0: # No more moves... Game Over.
+        return score for game
+    if turn == "X":
+        value = -infinity
+        for move in moves:
+            game_t = list(game)
+            game_t[game[move]] = "X"
+            game = "".join(game_t)
+            value = max(value, mini_max(game, "O"))
+    else:
+        value = infinity
+        for move in moves:
+            game_t = list(game)
+            game_t[game[move]] = "O"
+            game = "".join(game_t)
+            value = min(value, mini_max(game, "X"))
+
+
+
+
+
 @app.route("/")
 def index():
     if "board" not in session:
