@@ -114,45 +114,49 @@ def zet_voor_mens(board, turn):
     b[m-1] = turn
     return "".join(b)
 
-print()        
-print("======== START GAME ========")
-print()
+def main():
+    print()        
+    print("======== START GAME ========")
+    print()
 
-het_bord = "_________"
-is_aan_zet = "X"
-comp_heeft_X = True
+    het_bord = "_________"
+    is_aan_zet = "X"
+    comp_heeft_X = True
 
-mens = input("Wil je 'X' of 'O'? ")
-while (mens.lower() != "x") and (mens.lower() != "o"):
-    mens = input("Kies 'X' of 'O', welke wil je? ")
+    mens = input("Wil je 'X' of 'O'? ")
+    while (mens.lower() != "x") and (mens.lower() != "o"):
+        mens = input("Kies 'X' of 'O', welke wil je? ")
 
-if mens.lower() == "x":
-    comp_heeft_X = False
+    if mens.lower() == "x":
+        comp_heeft_X = False
 
-showBoard(het_bord) # Eerste, lege bord
+    showBoard(het_bord) # Eerste, lege bord
 
-for m in range(1,10):
-    if is_aan_zet == "X":
-        if comp_heeft_X:
-            het_bord = zet_voor_comp(het_bord, is_aan_zet)
+    for m in range(1,10):
+        if is_aan_zet == "X":
+            if comp_heeft_X:
+                het_bord = zet_voor_comp(het_bord, is_aan_zet)
+            else:
+                het_bord = zet_voor_mens(het_bord, is_aan_zet)
+            is_aan_zet = "O"
         else:
-            het_bord = zet_voor_mens(het_bord, is_aan_zet)
-        is_aan_zet = "O"
-    else:
-        if not comp_heeft_X:
-            het_bord = zet_voor_comp(het_bord, is_aan_zet)
-        else:
-            het_bord = zet_voor_mens(het_bord, is_aan_zet)    
-        is_aan_zet = "X"
-    showBoard(het_bord)
+            if not comp_heeft_X:
+                het_bord = zet_voor_comp(het_bord, is_aan_zet)
+            else:
+                het_bord = zet_voor_mens(het_bord, is_aan_zet)    
+            is_aan_zet = "X"
+        showBoard(het_bord)
 
-    if evalueer_bord(het_bord, "X"):
-        print("X heeft gewonnen!")
-        break
-    if evalueer_bord(het_bord, "O"):
-        print("O heeft gewonnen!")
-        break
-    if "_" not in het_bord:
-        print("Het is remise...")
-        break
-print()
+        if evalueer_bord(het_bord, "X"):
+            print("X heeft gewonnen!")
+            break
+        if evalueer_bord(het_bord, "O"):
+            print("O heeft gewonnen!")
+            break
+        if "_" not in het_bord:
+            print("Het is remise...")
+            break
+    print()
+
+if __name__ == "__main__":
+    main()

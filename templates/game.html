@@ -36,7 +36,7 @@
                                 {% if game[i][j] != "_" %}
                                     {{game[i][j]}}
                                 {% else %}
-                                    <a href="{{ url_for('play', row=i, col=j) }}">Play {{turn}}</a>
+                                    <a href="{{ url_for('play', row=i, col=j) }}">{{turn}}</a>
                                 {% endif %}
                             </td>
                         {% endfor %}
